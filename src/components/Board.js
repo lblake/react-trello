@@ -6,7 +6,6 @@ import { IoMdAdd as AddIcon } from 'react-icons/io';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import CardsList from './CardsList';
 import Form from './Form';
-
 import data from '../data';
 
 class Board extends Component {
@@ -25,12 +24,33 @@ class Board extends Component {
 
     // TODO: Bind your class methods here
     // ...
+    this.handleAddList = this.handleAddList.bind(this);
+    this.handleRemoveList = this.handleRemoveList.bind(this);
+    this.handleAddCard = this.handleAddCard.bind(this);
+    this.handleRemoveCard = this.handleRemoveCard.bind(this);
+    this.handleRemoveAllCards = this.handleRemoveAllCards.bind(this);
+    this.handleCopyCard = this.handleCopyCard.bind(this);
+    this.handleCopyList = this.handleCopyList.bind(this);
+    this.handleMoveAllCards = this.handleMoveAllCards.bind(this);
+    this.handleToggleMenu = this.handleToggleMenu.bind(this);
+    this.handleEditCard = this.handleEditCard.bind(this);
+    this.handleRemoveTag = this.handleRemoveTag.bind(this);
+    this.handleAddTag = this.handleAddTag.bind(this);
+    this.handleDragEnd = this.handleDragEnd.bind(this);
+    this.renderLists = this.renderLists.bind(this);
+    this.renderNewList = this.renderNewList.bind(this);
   }
 
   // TODO: implement the componentDidMount lifecycle method to fetch data and init the component state.
   // Tips:
   // - Use the `this.setState` method to update the component state
-  componentDidMount() {}
+  componentDidMount() {
+    this.setState({
+      cards: data.cards,
+      lists: data.lists,
+      listOrder: data.listsOrder,
+    });
+  }
 
   // TODO: implement the handleAddList method to add a new list to the board.
   // Tips:
@@ -144,11 +164,7 @@ class Board extends Component {
   // - Add the children function that returns your board lists component and bind everything together
   // --> https://github.com/atlassian/react-beautiful-dnd/blob/master/docs/api/droppable.md#children-function
   renderLists() {
-    return (
-      <div className="board-lists">
-        { /* render the lists */ }
-      </div>
-    );
+    return <div className='board-lists'>{/* render the lists */}</div>;
   }
 
   // TODO: implement the renderNewList method to render the list creation form.
@@ -165,12 +181,12 @@ class Board extends Component {
   // - Add the onDragEnd prop to the <DragDropContext> component
   render() {
     return (
-      <div className="board">
-        { /* render the lists */ }
-        { /* render the list creation form */ }
+      <div className='board'>
+        {/* render the lists */}
+        {/* render the list creation form */}
       </div>
     );
   }
-};
+}
 
 export default Board;
