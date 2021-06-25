@@ -18,55 +18,64 @@ import Form from './Form';
  * - Should render a <div> element as the container for the card
  * - Should render the tags list at the top of the card content
  * - Should render the card number and description below the tags
- * 
+ *
  * Tips:
  * - You can use the 'card' CSS class for styling
- * 
- */ 
+ *
+ */
 class CardsList extends Component {
   constructor(props) {
     super(props);
 
     // CardsList state
-    this.state = { 
+    this.state = {
       creatingNewCard: false,
       editCardId: null,
       editCardText: '',
-      editCardTags: []
+      editCardTags: [],
     };
 
     // TODO: Define all the card actions here
     this.actions = [
       [
-        { 
+        {
           title: 'Add Card...',
-          onClick: () => null // TODO
+          onClick: () => null, // TODO
         },
-        { 
+        {
           title: 'Copy List...',
-          onClick: () => null // TODO
-        }
+          onClick: () => null, // TODO
+        },
       ],
       [
         {
           title: 'Move All Cards in This List...',
-          onClick: () => null // TODO
+          onClick: () => null, // TODO
         },
         {
           title: 'Archive All Cards in This List...',
-          onClick: () => null // TODO
+          onClick: () => null, // TODO
         },
       ],
       [
         {
           title: 'Archive This List',
-          onClick: () => null // TODO
-        }
-      ]
+          onClick: () => null, // TODO
+        },
+      ],
     ];
 
     // TODO: Bind your class methods here
-    // ...
+    this.handleAddNewCard = this.handleAddTag.bind(this);
+    this.handleCancelNewCard = this.handleCancelNewCard.bind(this);
+    this.handleCreateNewCard = this.handleCreateNewCard.bind(this);
+    this.handleEditCard = this.handleEditCard.bind(this);
+    this.handleCancelEdit = this.handleCancelEdit.bind(this);
+    this.handleCopyCard = this.handleCopyCard.bind(this);
+    this.handleArchiveCard = this.handleArchiveCard.bind(this);
+    this.handleSaveCard = this.handleSaveCard.bind(this);
+    this.handleRemoveTag = this.handleRemoveTag.bind(this);
+    this.handleAddTag = this.handleAddTag.bind(this);
   }
 
   // TODO: implement the handleAddNewCard method to add a new card to the list.
@@ -136,12 +145,18 @@ class CardsList extends Component {
   // (using the dragHandleProps)
   renderHeader() {
     return (
-      <div className="cards-list-header">
-        <div className="cards-list-title">
-          { /* render the list title */ }
-          { /* render the Menu component */ }
+      <div className='cards-list-header'>
+        <div className='cards-list-title'>
+          <h3>{this.props.title}</h3>
+          {<Menu />}
         </div>
-        { /* render the number of cards in this list */ }
+        <p>
+          {
+            /* render the number of cards in this list */
+            this.props.cards.length
+          }{' '}
+          cards{' '}
+        </p>
       </div>
     );
   }
@@ -160,8 +175,13 @@ class CardsList extends Component {
   // --> https://github.com/atlassian/react-beautiful-dnd/blob/master/docs/api/droppable.md#children-function
   renderCards() {
     return (
-      <ol className="cards">
-        { /* render the cards */ }
+      <ol className='cards'>
+        {
+          /* render the cards */
+          <li>
+            <Card />
+          </li>
+        }
       </ol>
     );
   }
@@ -183,15 +203,18 @@ class CardsList extends Component {
   // --> https://github.com/atlassian/react-beautiful-dnd/blob/master/docs/api/draggable.md#children-function-render-props--function-as-child
   render() {
     return (
-      <div className="cards-list">
-        { /* render list header */ }
-        { /* render cards */ }
-        { /* render list footer */ }
-        { /* render card editor */ }
+      <div className='cards-list'>
+        {
+          /* render header */
+          this.renderHeader()
+        }
+        {/* render cards */ this.renderCards()}
+        {/* render list footer */}
+        {/* render card editor */}
       </div>
     );
   }
-};
+}
 
 CardsList.defaultProps = {
   cards: null,
@@ -206,7 +229,7 @@ CardsList.defaultProps = {
   onCopyCard: () => null,
   onEditCard: () => null,
   onRemoveTag: () => null,
-  onAddTag: () => null
+  onAddTag: () => null,
 };
 
 CardsList.propTypes = {
@@ -218,7 +241,7 @@ CardsList.propTypes = {
       id: PropTypes.string.isRequired,
       number: PropTypes.number.isRequired,
       description: PropTypes.string,
-      tags: PropTypes.arrayOf(PropTypes.string)
+      tags: PropTypes.arrayOf(PropTypes.string),
     })
   ),
   isMenuOpen: PropTypes.bool,
@@ -232,7 +255,7 @@ CardsList.propTypes = {
   onCopyCard: PropTypes.func,
   onEditCard: PropTypes.func,
   onRemoveTag: PropTypes.func,
-  onAddTag: PropTypes.func
+  onAddTag: PropTypes.func,
 };
 
 export default CardsList;
