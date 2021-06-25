@@ -48,7 +48,7 @@ class Board extends Component {
     this.setState({
       cards: data.cards,
       lists: data.lists,
-      listOrder: data.listsOrder,
+      listOrder: data.listOrder,
     });
   }
 
@@ -164,7 +164,25 @@ class Board extends Component {
   // - Add the children function that returns your board lists component and bind everything together
   // --> https://github.com/atlassian/react-beautiful-dnd/blob/master/docs/api/droppable.md#children-function
   renderLists() {
-    return <div className='board-lists'>{/* render the lists */}</div>;
+    return (
+      <div className='board-lists'>
+        {this.state.listOrder.map((listId, index) => {
+          const list = this.state.lists[listId];
+          const cards = list.cardIds.map((cardId) => {
+            return this.state.cards[cardId];
+          });
+
+          return (
+            <CardsList
+              id={listId}
+              index={index}
+              title={list.title}
+              cards={cards}
+            />
+          );
+        })}
+      </div>
+    );
   }
 
   // TODO: implement the renderNewList method to render the list creation form.
@@ -182,7 +200,7 @@ class Board extends Component {
   render() {
     return (
       <div className='board'>
-        {/* render the lists */}
+        {this.renderLists()}
         {/* render the list creation form */}
       </div>
     );
