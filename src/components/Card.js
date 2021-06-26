@@ -13,7 +13,7 @@ import Tag from './Tag';
  * - Should render a <div> element as the container for the card content
  * - Should render the tags list at the top of the card content
  * - Should render the card number and description below the tags
- * 
+ *
  * Tips:
  * - You can use the 'card' CSS class for styling
  *
@@ -26,9 +26,23 @@ import Tag from './Tag';
  * --> https://github.com/atlassian/react-beautiful-dnd/blob/master/docs/api/draggable.md#children-function-render-props--function-as-child
  */
 const Card = (props) => (
-  <div className="card">
-    { /* render tags list */ }
-    { /* render card number and description */ }
+  <div className='card'>
+    {
+      /* render tags list */
+      props.tags.map((tag, index) => {
+        return (
+          <span className='tag'>
+            <Tag key={index} text={tag}   />
+          </span>
+        );
+      })
+    }
+    {
+      /* render card number and description */
+      <p>
+        {props.number} {props.description}{' '}
+      </p>
+    }
   </div>
 );
 
@@ -37,7 +51,7 @@ Card.propTypes = {
   index: PropTypes.number.isRequired,
   number: PropTypes.number.isRequired,
   description: PropTypes.string,
-  tags: PropTypes.arrayOf(PropTypes.string)
+  tags: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default Card;

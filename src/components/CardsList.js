@@ -178,9 +178,18 @@ class CardsList extends Component {
       <ol className='cards'>
         {
           /* render the cards */
-          <li>
-            <Card />
-          </li>
+          this.props.cards.map((card, index) => {
+            return (
+              <li key={card.id}>
+                <Card
+                  index={index}
+                  number={card.number}
+                  tags={card.tags}
+                  description={card.description}
+                />
+              </li>
+            );
+          })
         }
       </ol>
     );
