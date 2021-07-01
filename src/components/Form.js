@@ -16,11 +16,11 @@ import Button from './Button';
  * - Should either render an input or a textarea element
  * - Should render a submit button
  * - Should render a cancel icon (optional)
- * 
+ *
  * Tips:
  * - You can use the 'form' and 'form-*' CSS classes for styling
- * 
- */ 
+ *
+ */
 class Form extends Component {
   constructor(props) {
     super(props);
@@ -30,10 +30,14 @@ class Form extends Component {
     this.controlRef = React.createRef();
 
     // TODO: Define your state properties here
-    this.state = {}
+    this.state = {
+      value: this.props.initialValue,
+    };
 
     // TODO: Bind your class methods here
+    // this.handleAddList = this.handleAddList.bind(this);
     // ...
+    this.handleOnChangeText = this.handleOnChangeText.bind(this);
   }
 
   // TODO: implement the componentDidMount lifecycle method to set focus on the form control element.
@@ -44,7 +48,9 @@ class Form extends Component {
   // TODO: implement the handleOnChangeText event handler.
   // Tips:
   // - Use the `this.setState` method to update the text value of the control from
-  handleOnChangeText(event) {}
+  handleOnChangeText(event) {
+    this.setState({ value: event.target.value });
+  }
 
   // TODO: implement the handleOnSubmit event handler.
   // Tips:
@@ -65,23 +71,32 @@ class Form extends Component {
       <form
         ref={this.formRef}
         className={`form form-${this.props.type}`}
+        onSubmit={this.handleOnSubmit}
       >
-        { /* render form control: input or textarea */ } 
-        <div className="form-actions">
-          { /* render submit button */ }
-          { /* render cancel icon */ }
+        {/* render form control: input or textarea */}
+        <input
+          className='form-input'
+          type='text'
+          placeholder={this.props.placeholder}
+          value={this.state.value}
+          onChange={this.handleOnChangeText}
+        />
+        <div className='form-actions'>
+          <Button text={this.props.buttonText} />
+          {/* render cancel icon */}
+          <p><CancelIcon/></p>
         </div>
       </form>
     );
   }
-};
+}
 
 Form.defaultProps = {
   initialValue: '',
-  placeholder: '',
+  placeholder: 'Enter a title for this list...',
   buttonText: '',
   onClickSubmit: () => null,
-  onClickCancel: () => null
+  onClickCancel: () => null,
 };
 
 Form.propTypes = {
@@ -90,7 +105,7 @@ Form.propTypes = {
   placeholder: PropTypes.string,
   buttonText: PropTypes.string,
   onClickSubmit: PropTypes.func,
-  onClickCancel: PropTypes.func
+  onClickCancel: PropTypes.func,
 };
 
 export default Form;
