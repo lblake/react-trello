@@ -189,7 +189,18 @@ class Board extends Component {
   // Tips:
   // - Render a Form component in creation mode to let the user enter the new list title
   // - Otherwise, render a button to trigger the creation mode (creatingNewList)
-  renderNewList() {}
+  renderNewList() {
+    return this.state.creatingNewList ? (
+      <Form />
+    ) : (
+      <button
+        onClick={() => this.setState({ creatingNewList: true })}
+        className='add-button'
+      >
+          <p> <AddIcon /> Add a new list</p>
+      </button>
+    );
+  }
 
   // TODO: render the Board UI.
   //
@@ -201,7 +212,7 @@ class Board extends Component {
     return (
       <div className='board'>
         {this.renderLists()}
-        {/* render the list creation form */}
+        {this.renderNewList()}
       </div>
     );
   }
