@@ -218,8 +218,8 @@ class CardsList extends Component {
           this.renderHeader()
         }
         {/* render cards */ this.renderCards()}
-        {/* render list footer */}
-        {/* render card editor */}
+        {/* render list footer */ this.renderFooter()}
+        {/* render card editor */ }
       </div>
     );
   }

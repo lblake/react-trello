@@ -66,7 +66,11 @@ class Board extends Component {
   // - Delete all cards from the list
   // - Delete list itself
   // - Use the `this.setState` method to update the state (lists, cards, listOrder)
-  handleRemoveList(listId) {}
+  handleRemoveList(listId) {
+    const newList = data.lists.filter((item) => item.listId !== listId);
+    this.setState({ ...data.lists, list: newList });
+    console.log(newList);
+  }
 
   // TODO: implement the handleAddCard method to add a card to a list.
   // Tips:
@@ -191,13 +195,16 @@ class Board extends Component {
   // - Otherwise, render a button to trigger the creation mode (creatingNewList)
   renderNewList() {
     return this.state.creatingNewList ? (
-      <Form />
+      <Form placeholder='Enter a title for this list...' />
     ) : (
       <button
         onClick={() => this.setState({ creatingNewList: true })}
         className='add-button'
       >
-          <p> <AddIcon /> Add a new list</p>
+        <p>
+          {' '}
+          <AddIcon /> Add a new list
+        </p>
       </button>
     );
   }

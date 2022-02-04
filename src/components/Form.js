@@ -32,12 +32,14 @@ class Form extends Component {
     // TODO: Define your state properties here
     this.state = {
       value: this.props.initialValue,
+      placeholder: this.props.placeholder,
     };
 
     // TODO: Bind your class methods here
-    // this.handleAddList = this.handleAddList.bind(this);
     // ...
     this.handleOnChangeText = this.handleOnChangeText.bind(this);
+    this.handleOnSubmit = this.handleOnSubmit.bind(this);
+    this.handleOnKeyDown = this.handleOnKeyDown.bind(this);
   }
 
   // TODO: implement the componentDidMount lifecycle method to set focus on the form control element.
@@ -57,7 +59,11 @@ class Form extends Component {
   // - Use the `preventDefault` method to prevent the default action
   // - Call the `this.props.onClickSubmit` method to submit the text
   // - Clean up the control form value using `this.setState`
-  handleOnSubmit(event) {}
+  handleOnSubmit(event) {
+    event.preventDefault();
+    this.props.onClickSubmit = { value: event.target };
+    this.setState({ value: '' });
+  }
 
   // TODO: implement the handleOnKeyDown event handler.
   // Tips:
@@ -84,7 +90,9 @@ class Form extends Component {
         <div className='form-actions'>
           <Button text={this.props.buttonText} />
           {/* render cancel icon */}
-          <p><CancelIcon/></p>
+          <p>
+            <CancelIcon />
+          </p>
         </div>
       </form>
     );
@@ -93,7 +101,7 @@ class Form extends Component {
 
 Form.defaultProps = {
   initialValue: '',
-  placeholder: 'Enter a title for this list...',
+  placeholder: '',
   buttonText: '',
   onClickSubmit: () => null,
   onClickCancel: () => null,

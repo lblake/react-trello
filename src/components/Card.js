@@ -32,7 +32,7 @@ const Card = (props) => (
       props.tags.map((tag, index) => {
         return (
           <span className='tag'>
-            <Tag key={index} text={tag}   />
+            <Tag key={index} text={tag} />
           </span>
         );
       })
